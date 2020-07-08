@@ -25,11 +25,6 @@ if (isset($_POST['submitted'])) {
 
   if ( $email == '' ) {
     $error['email'] = '*メールアドレスを入力してください。';
-  } else { //正規表現でメールアドレスのチェック
-    $pattern = '^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$';
-    if ( !preg_match( $pattern, $email ) ) {
-      $error['email'] = '*メールアドレスの形式が正しくありません。';
-    }
   }
 
   if ( $email_check == '' ) {
@@ -44,7 +39,7 @@ if (isset($_POST['submitted'])) {
 
   if ( $subject == '' ) {
     $error['subject'] = '*件名を入力してください。';
-  } elseif( preg_match( '/\A[[:^cntrl:]]{1, 100}\z/u', $subject ) == 0 ) {
+  } elseif( preg_match( '/\A[[:^cntrl:]]{1,100}\z/u', $subject ) == 0 ) {
    $error['subject'] = '*件名は100文字以内です。';
   }
 
@@ -65,7 +60,7 @@ if (isset($_POST['submitted'])) {
   <div class = "container">
     <h2 class="">問い合わせフォーム</h2>
     <p>以下のフォームからお問い合わせください</p>
-    <form id="form" method="post">
+    <form id="form" action="<?php if (empty($error)){echo "confirm.php" ;} ?>" method="post" name="form" onsubmit="return validate()">
       <div class="form-group">
         <label for="name">お名前（30文字以内)(必須)
           <span class="error"><?php if (isset ($error['name'] ) ) echo h($error['name']); ?></span>
