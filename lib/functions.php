@@ -17,11 +17,11 @@ function checkInput($var){
   } else {
     //NULLバイト攻撃対策
     if(preg_match('/\0/', $var)){
-      die('不正な値です')
+      die('不正な値です');
     }
     //文字のエンコードチェック
     if(!mb_check_encoding($var, 'UTF-8')){
-      die('不正な値です')
+      die('不正な値です');
     }
     return $var;
   }
