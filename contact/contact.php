@@ -55,6 +55,7 @@ if (isset($_POST['submitted'])) {
 <head>
 <meta charset="utf-8">
 <title>contact</title>
+<link rel="stylesheet" href="../lib/style.css">
 </head>
 <body>
   <div class = "container">

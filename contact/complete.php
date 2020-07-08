@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>お問い合わせフォーム</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../lib/style.css">
 </head>
 <body>
 <div><h1>Company Name</h1></div>
