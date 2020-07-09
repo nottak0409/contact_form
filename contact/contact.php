@@ -16,6 +16,8 @@ if (isset($_POST['submitted'])) {
   //エラーメッセージを保存する配列の初期化
   $error = array();
 
+  $section = 0;
+
   if ( $name == '' ) {
     $error['name'] = '*名前を入力してください。';
   } elseif ( preg_match( '/\A[[:^cntrl:]]{1,30}\z/u', $name ) == 0 ) {
@@ -48,6 +50,8 @@ if (isset($_POST['submitted'])) {
   } elseif ( preg_match( '/\A[\r\n\t[:^cntrl:]]{1,1050}\z/u', $contact ) == 0 ) {
     $error['contact'] = '*内容は1000文字以内です。';
   }
+  else
+  { $section == "true"; }
 }
  ?>
 <!DOCTYPE html>
@@ -56,12 +60,13 @@ if (isset($_POST['submitted'])) {
 <meta charset="utf-8">
 <title>contact</title>
 <link rel="stylesheet" href="../lib/style.css">
+<link rel="bootstrap" href="../lib/bootstrap.html">
 </head>
 <body>
   <div class = "container">
     <h2 class="">問い合わせフォーム</h2>
     <p>以下のフォームからお問い合わせください</p>
-    <form id="form" action="<?php if (empty($error)){echo "confirm.php" ;} ?>" method="post" name="form" onsubmit="return validate()">
+    <form id="form" action="<?php if ($section == "true") {echo "confirm.php" ;} ?>" method="post" name="form" onsubmit="return validate()">
       <div class="form-group">
         <label for="name">お名前（30文字以内)(必須)
           <span class="error"><?php if (isset ($error['name'] ) ) echo h($error['name']); ?></span>

@@ -8,7 +8,7 @@
         $tel = trim( isset( $_POST[ 'tel' ] ) ? $_POST[ 'tel' ] : NULL );
         $subject = trim( isset( $_POST[ 'subject' ] ) ? $_POST[ 'subject' ] : NULL );
         $contact = trim ( isset( $_POST[ 'contact' ] ) ? $_POST[ 'contact' ] : NULL );
-}
+      }
     // 送信ボタンが押されたら
     if (isset($_POST["submit"])) {
         // 送信ボタンが押された時に動作する処理をここに記述する
@@ -62,7 +62,7 @@ EOM;
         // メール送信を行う
         mb_send_mail($email, $subject, $body, $header);
 
-        // サンクスページに画面遷移させる
+        // complete.phpに画面遷移させる
         header("Location: complete.php");
         exit;
     }
@@ -73,7 +73,6 @@ EOM;
 <title>お問い合わせフォーム</title>
 <link rel="stylesheet" href="../lib/style.css">
 <body>
-<div><h1>Company Name</h1></div>
 <div><h2>お問い合わせ</h2></div>
 <div>
     <form action="confirm.php" method="post">
