@@ -1,5 +1,19 @@
 <?php
-    // フォームのボタンが押されたら
+require_once('../lib/functions.php');
+
+    session_start();
+
+    if (isset($_POST['ticket']) && isset($_SESSION['ticket'])) {
+      $ticket = $_POST['ticket'];
+      if ($ticket != $_SESSION['ticket']) {
+        header('Location: contact.php');
+        exit();
+      }
+    } else {
+      header('Location: contact.php');
+      exit();
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // フォームから送信されたデータを各変数に格納
         $name = trim(isset($_POST['name']) ? $_POST['name']: NULL );
@@ -8,8 +22,74 @@
         $tel = trim( isset( $_POST[ 'tel' ] ) ? $_POST[ 'tel' ] : NULL );
         $subject = trim( isset( $_POST[ 'subject' ] ) ? $_POST[ 'subject' ] : NULL );
         $contact = trim ( isset( $_POST[ 'contact' ] ) ? $_POST[ 'contact' ] : NULL );
+
+        $_SESSION["name"] = $name;
+        $_SESSION["email"] = $email;
+        $_SESSION["email_check"] = $email_check;
+        $_SESSION["tel"] = $tel;
+        $_SESSION["subject"] = $subject;
+        $_SESSION["contact"] = $contact;
       }
+
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $_POST = checkInput( $_POST );
+
+        //エラーメッセージを保存する配列の初期化
+        $error = array();
+
+        if ( $name == '' ) {
+          $error['name'] = '*名前を入力してください。';
+        } elseif ( preg_match( '/\A[[:^cntrl:]]{1,30}\z/u', $name ) == 0 ) {
+          //[:cntrl:]→制御文字 [:^cntrl:]→制御文字を含まない /u→パターン修飾子
+          $error['name'] = '*名前は30文字以内です。';
+        }
+
+        if ( $email == '' ) {
+          $error['email'] = '*メールアドレスを入力してください。';
+        }
+
+        if ( $email_check == '' ) {
+          $error['email_check'] = '確認用メールアドレスに入力してください。';
+        } elseif( $email_check !== $email ) {
+          $error['email_check'] = 'メールアドレスが一致しません。';
+        }
+
+        if ( $tel != '' && preg_match( '/\A\(?\d{2,5}\)?[-(\.\s]{0,2}\d{1,4}[-)\.\s]{0,2}\d{3,4}\z/u', $tel ) == 0 ) {
+          $error['tel'] = '*電話番号の形式は正しくありません。';
+        }
+
+        if ( $subject == '' ) {
+          $error['subject'] = '*件名を入力してください。';
+        } elseif( preg_match( '/\A[[:^cntrl:]]{1,100}\z/u', $subject ) == 0 ) {
+         $error['subject'] = '*件名は100文字以内です。';
+        }
+
+        if( $contact == '' ) {
+          $error['contact'] = '*内容を入力してください';
+        } elseif ( preg_match( '/\A[\r\n\t[:^cntrl:]]{1,1050}\z/u', $contact ) == 0 ) {
+          $error['contact'] = '*内容は1000文字以内です。';
+        }
+      }
+
+//class ErrorSession {
+//  public function setValue($i){
+//  $_SESSION["error_{$i}"] = $error["{$i}"];
+//  }
+//}
+//      $error_name = new ErrorSession();
+//      $error_name->setValue("name");
+      $_SESSION["error_name"] = $error['name'];
+      $_SESSION["error_email"] = $error['email'];
+      $_SESSION["error_email_check"] = $error['error_email_check'];
+      $_SESSION["error_tel"] = $error['tel'];
+      $_SESSION["error_subject"] = $error['subject'];
+      $_SESSION["error_contact"] = $error['contact'];
+
+      if ( $error != array() )
+      { header('Location: contact.php'); }
     // 送信ボタンが押されたら
+
     if (isset($_POST["submit"])) {
         // 送信ボタンが押された時に動作する処理をここに記述する
 
@@ -75,7 +155,7 @@ EOM;
 <body>
 <div><h2>お問い合わせ</h2></div>
 <div>
-    <form action="confirm.php" method="post">
+    <form action="complete.php" method="post">
             <input type="hidden" name="name" value="<?php echo $name; ?>">
             <input type="hidden" name="email" value="<?php echo $email; ?>">
             <input type="hidden" name="tel" value="<?php echo $tel; ?>">
