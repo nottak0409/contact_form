@@ -57,6 +57,8 @@ require_once('../lib/functions.php');
 
         if ( $tel != '' && preg_match( '/\A\(?\d{2,5}\)?[-(\.\s]{0,2}\d{1,4}[-)\.\s]{0,2}\d{3,4}\z/u', $tel ) == 0 ) {
           $error['tel'] = '*電話番号の形式は正しくありません。';
+        } elseif ( $tel == '' ) {
+          $error['tel'] = '*電話番号を入力してください';
         }
 
         if ( $subject == '' ) {
@@ -81,7 +83,7 @@ require_once('../lib/functions.php');
 //      $error_name->setValue("name");
       $_SESSION["error_name"] = $error['name'];
       $_SESSION["error_email"] = $error['email'];
-      $_SESSION["error_email_check"] = $error['error_email_check'];
+      $_SESSION["error_email_check"] = $error['email_check'];
       $_SESSION["error_tel"] = $error['tel'];
       $_SESSION["error_subject"] = $error['subject'];
       $_SESSION["error_contact"] = $error['contact'];
@@ -131,7 +133,7 @@ require_once('../lib/functions.php');
 EOM;
 
         // 送信元のメールアドレスを変数fromEmailに格納
-        $fromEmail = "contact@dream-php-seminar.com";
+        $fromEmail = "contact@email.test";
 
         // 送信元の名前を変数fromNameに格納
         $fromName = "お問い合わせテスト";
@@ -140,7 +142,7 @@ EOM;
         $header = "From: " .mb_encode_mimeheader($fromName) ."<{$fromEmail}>";
 
         // メール送信を行う
-        mb_send_mail($email, $subject, $body, $header);
+        mb_send_mail($email, $subject, $contact, $header);
 
         // complete.phpに画面遷移させる
         header("Location: complete.php");

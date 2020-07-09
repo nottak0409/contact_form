@@ -4,13 +4,6 @@ require_once('../lib/functions.php');
 
 session_start();
 
-$name = trim(isset($_POST['name']) ? $_POST['name']: NULL );
-$email = trim( isset( $_POST[ 'email' ] ) ? $_POST[ 'email' ] : NULL );
-$email_check = trim( isset( $_POST[ 'email_check' ] ) ? $_POST[ 'email_check' ] : NULL );
-$tel = trim( isset( $_POST[ 'tel' ] ) ? $_POST[ 'tel' ] : NULL );
-$subject = trim( isset( $_POST[ 'subject' ] ) ? $_POST[ 'subject' ] : NULL );
-$contact = trim ( isset( $_POST[ 'contact' ] ) ? $_POST[ 'contact' ] : NULL );
-
 $ticket = md5(uniqid(rand(), TRUE));
 
 $_SESSION['ticket'] = $ticket;
