@@ -50,9 +50,9 @@ require_once('../lib/functions.php');
         }
 
         if ( $email_check == '' ) {
-          $error['email_check'] = '確認用メールアドレスに入力してください。';
+          $error['email_check'] = '*確認用メールアドレスに入力してください。';
         } elseif( $email_check !== $email ) {
-          $error['email_check'] = 'メールアドレスが一致しません。';
+          $error['email_check'] = '*メールアドレスが一致しません。';
         }
 
         if ( $tel != '' && preg_match( '/\A\(?\d{2,5}\)?[-(\.\s]{0,2}\d{1,4}[-)\.\s]{0,2}\d{3,4}\z/u', $tel ) == 0 ) {
@@ -153,10 +153,9 @@ EOM;
 <head>
 <meta charset="UTF-8">
 <title>お問い合わせフォーム</title>
-<link rel="stylesheet" href="../lib/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <body>
-<div><h2>お問い合わせ</h2></div>
-<div>
+<div class = "container">
     <form action="complete.php" method="post">
             <input type="hidden" name="name" value="<?php echo $name; ?>">
             <input type="hidden" name="email" value="<?php echo $email; ?>">
@@ -168,27 +167,28 @@ EOM;
             <div>
                 <div>
                     <label>お名前</label>
-                    <p><?php echo $name; ?></p>
+                    <p class="form-control"><?php echo $name; ?></p>
                 </div>
                 <div>
                     <label>メールアドレス</label>
-                    <p><?php echo $email; ?></p>
+                    <p class="form-control"><?php echo $email; ?></p>
                 </div>
                 <div>
                     <label>電話番号</label>
-                    <p><?php echo $tel; ?></p>
+                    <p class="form-control"><?php echo $tel; ?></p>
                 </div>
                 <div>
                     <label>お問い合わせ項目</label>
-                    <p><?php echo $subject; ?></p>
+                    <p class="form-control"><?php echo $subject; ?></p>
                 </div>
                 <div>
                     <label>お問い合わせ内容</label>
-                    <p><?php echo nl2br($contact); ?></p>
+                    <p class="form-control"><?php echo nl2br($contact); ?></p>
                 </div>
             </div>
-        <input type="button" value="内容を修正する" onclick="history.back(-1)">
-        <button type="submit" name="submit">送信する</button>
+        <input type="hidden" name="ticket" value="<?= h($ticket); ?>">
+        <input type="button" value="内容を修正する" onclick="history.back(-1)" class="btn btn-secondary">
+        <button type="submit" name="submit" class="btn btn-primary">送信する</button>
     </form>
 </div>
 </body>
