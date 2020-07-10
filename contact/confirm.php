@@ -3,13 +3,18 @@ require_once('../lib/functions.php');
 
     session_start();
 
+    $flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
+    unset($_SESSION['flash']);
+
     if (isset($_POST['ticket']) && isset($_SESSION['ticket'])) {
       $ticket = $_POST['ticket'];
       if ($ticket != $_SESSION['ticket']) {
+        flash('error', '不正なアクセスです。');
         header('Location: contact.php');
         exit();
       }
     } else {
+      flash('error', '不正なアクセスです。');
       header('Location: contact.php');
       exit();
     }
@@ -98,11 +103,11 @@ require_once('../lib/functions.php');
         // 日本語をメールで送る場合のおまじない
             mb_language("ja");
         mb_internal_encoding("UTF-8");
-
+        $
         //mb_send_mail("kanda.it.school.trial@gmail.com", "メール送信テスト", "メール本文");
 
             // 件名を変数subjectに格納
-            $subject = "［自動送信］お問い合わせ内容の確認";
+            $text = "［自動送信］お問い合わせ内容の確認";
 
             // メール本文を変数bodyに格納
         $body = <<< EOM
@@ -142,7 +147,7 @@ EOM;
         $header = "From: " .mb_encode_mimeheader($fromName) ."<{$fromEmail}>";
 
         // メール送信を行う
-        mb_send_mail($email, $subject, $contact, $header);
+        mb_send_mail($email, $text, $header);
 
         // complete.phpに画面遷移させる
         header("Location: complete.php");
@@ -154,6 +159,7 @@ EOM;
 <meta charset="UTF-8">
 <title>お問い合わせフォーム</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="./stylesheet.css">
 <body>
 <div class = "container">
     <form action="complete.php" method="post">

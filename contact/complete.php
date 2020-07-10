@@ -1,13 +1,20 @@
 <?php
+require_once('../lib/functions.php');
+
 session_start();
+
+$flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
+unset($_SESSION['flash']);
 
 if (isset($_POST['ticket']) && isset($_SESSION['ticket'])) {
   $ticket = $_POST['ticket'];
   if ($ticket != $_SESSION['ticket']) {
+    flash('error', '不正なアクセスです。');
     header('Location: contact.php');
     exit();
   }
 } else {
+  flash('error', '不正なアクセスです。');
   header('Location: contact.php');
   exit();
 }
@@ -23,6 +30,7 @@ if(isset($_POST['submit'])) {
 <meta charset="UTF-8">
 <title>お問い合わせフォーム</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="./stylesheet.css">
 </head>
 <body>
 <div class = "container">

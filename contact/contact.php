@@ -4,6 +4,9 @@ require_once('../lib/functions.php');
 
 session_start();
 
+$flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
+unset($_SESSION['flash']);
+
 $ticket = md5(uniqid(rand(), TRUE));
 
 $_SESSION['ticket'] = $ticket;
@@ -16,7 +19,19 @@ $_SESSION['ticket'] = $ticket;
 <title>contact</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="./stylesheet.css">
 </head>
+<header>
+<?php
+
+foreach(array('default', 'error', 'warning') as $key) {
+    if(strlen(@$flash[$key])){
+        ?>
+            <h1 class="alert-danger text-center">
+                <?php echo $flash[$key]; ?>
+            </h1>
+<?php }}  ?>
+</header>
 <body>
   <div class = "container">
     <h2 class="">問い合わせフォーム</h2>
