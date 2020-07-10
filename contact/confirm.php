@@ -52,8 +52,9 @@ require_once('../lib/functions.php');
 
         if ( $email == '' ) {
           $error['email'] = '*メールアドレスを入力してください。';
+        } elseif ( preg_match( "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/", $email) == 0) {
+          $error['email'] = 'メールアドレスの形式が正しくありません。';
         }
-
         if ( $email_check == '' ) {
           $error['email_check'] = '*確認用メールアドレスに入力してください。';
         } elseif( $email_check !== $email ) {
@@ -100,7 +101,6 @@ require_once('../lib/functions.php');
     if (isset($_POST["submit"])) {
         // 送信ボタンが押された時に動作する処理をここに記述する
 
-        // 日本語をメールで送る場合のおまじない
             mb_language("ja");
         mb_internal_encoding("UTF-8");
 
