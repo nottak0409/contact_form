@@ -11,13 +11,12 @@ if (isset($_POST['ticket']) && isset($_SESSION['ticket'])) {
   if ($ticket != $_SESSION['ticket']) {
     flash('error', '不正なアクセスです。');
     header('Location: contact.php');
+    exit();}
+  } else {
+    flash('error', '不正なアクセスです。');
+    header('Location: contact.php');
     exit();
   }
-} else {
-  flash('error', '不正なアクセスです。');
-  header('Location: contact.php');
-  exit();
-}
 
 if(isset($_POST['submit'])) {
   $_SESSION = array();
