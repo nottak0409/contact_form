@@ -103,11 +103,11 @@ require_once('../lib/functions.php');
         // 日本語をメールで送る場合のおまじない
             mb_language("ja");
         mb_internal_encoding("UTF-8");
-        $
+
         //mb_send_mail("kanda.it.school.trial@gmail.com", "メール送信テスト", "メール本文");
 
-            // 件名を変数subjectに格納
-            $text = "［自動送信］お問い合わせ内容の確認";
+            // 件名を変数titleに格納
+            $title = "［自動送信］お問い合わせ内容の確認";
 
             // メール本文を変数bodyに格納
         $body = <<< EOM
@@ -138,7 +138,7 @@ require_once('../lib/functions.php');
 EOM;
 
         // 送信元のメールアドレスを変数fromEmailに格納
-        $fromEmail = "contact@email.test";
+        $fromEmail = "nottak0409@gmail.com";
 
         // 送信元の名前を変数fromNameに格納
         $fromName = "お問い合わせテスト";
@@ -147,7 +147,7 @@ EOM;
         $header = "From: " .mb_encode_mimeheader($fromName) ."<{$fromEmail}>";
 
         // メール送信を行う
-        mb_send_mail($email, $text, $header);
+        mb_send_mail($email, $title, $body, $header, $fromemail);
 
         // complete.phpに画面遷移させる
         header("Location: complete.php");
