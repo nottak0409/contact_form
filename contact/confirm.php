@@ -10,12 +10,12 @@ require_once('../lib/functions.php');
       $ticket = $_POST['ticket'];
       if ($ticket != $_SESSION['ticket']) {
         flash('error', '不正なアクセスです。');
-        header('Location: contact.php');
+        header('Location: ../index.php');
         exit();
       }
     } else {
       flash('error', '不正なアクセスです。');
-      header('Location: contact.php');
+      header('Location: ../index.php');
       exit();
     }
 
