@@ -95,7 +95,7 @@ require_once('../lib/functions.php');
       $_SESSION["error_contact"] = $error['contact'];
 
       if ( $error != array() )
-      { header('Location: contact.php'); }
+      { header('Location: ../index.php'); }
     // 送信ボタンが押されたら
 
     if (isset($_POST["submit"])) {
