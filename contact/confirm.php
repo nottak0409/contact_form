@@ -87,12 +87,14 @@ require_once('../lib/functions.php');
 //}
 //      $error_name = new ErrorSession();
 //      $error_name->setValue("name");
+     if (!empty($error)){
       $_SESSION["error_name"] = $error['name'];
       $_SESSION["error_email"] = $error['email'];
       $_SESSION["error_email_check"] = $error['email_check'];
       $_SESSION["error_tel"] = $error['tel'];
       $_SESSION["error_subject"] = $error['subject'];
       $_SESSION["error_contact"] = $error['contact'];
+    }
 
       if ( $error != array() )
       { header('Location: ../index.php'); }
