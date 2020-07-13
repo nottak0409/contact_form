@@ -40,7 +40,7 @@ if(isset($_POST['submit'])) {
 		内容を確認のうえ、回答させて頂きます。<br>
 		しばらくお待ちください。
 		</p>
-		<a href="contact.php">
+		<a href="../index.php">
 			<button type="button" class="btn btn-info" >お問い合わせに戻る</button>
 		</a>
 	</div>
