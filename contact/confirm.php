@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/functions.php');
+require '../vendor/autoload.php';
 
     session_start();
 
@@ -109,7 +110,7 @@ require_once('../lib/functions.php');
         //mb_send_mail("kanda.it.school.trial@gmail.com", "メール送信テスト", "メール本文");
 
             // 件名を変数titleに格納
-            $title = "［自動送信］お問い合わせ内容の確認";
+        $title = "［自動送信］お問い合わせ内容の確認";
 
             // メール本文を変数bodyに格納
         $body = <<< EOM
