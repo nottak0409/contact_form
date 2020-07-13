@@ -140,7 +140,7 @@ require_once('../lib/functions.php');
 EOM;
 
         // 送信元のメールアドレスを変数fromEmailに格納
-        $fromEmail = "nottak0409@gmail.com";
+        $fromEmail = "to@example.com";
 
         // 送信元の名前を変数fromNameに格納
         $fromName = "お問い合わせテスト";
