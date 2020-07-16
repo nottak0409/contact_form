@@ -20,6 +20,7 @@ require '../vendor/autoload.php';
       exit();
     }
 
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // フォームから送信されたデータを各変数に格納
         $name = trim(isset($_POST['name']) ? $_POST['name']: NULL );
@@ -42,6 +43,14 @@ require '../vendor/autoload.php';
         $_POST = checkInput( $_POST );
 
         //エラーメッセージを保存する配列の初期化
+        unset($_SESSION["error_name"]);
+        unset($_SESSION["error_email"]);
+        unset($_SESSION["error_email_check"]);
+        unset($_SESSION["error_tel"]);
+        unset($_SESSION["error_subject"]);
+        unset($_SESSION["error_contact"]);
+
+
         $error = array();
 
         if ( $name == '' ) {
@@ -197,7 +206,7 @@ EOM;
                 </div>
             </div>
         <input type="hidden" name="ticket" value="<?= h($ticket); ?>">
-        <input type="button" value="内容を修正する" onclick="history.back(-1)" class="btn btn-secondary">
+        <input type="button" value="内容を修正する" name="fix" onclick="history.back(-1)" class="btn btn-secondary">
         <button type="submit" name="submit" class="btn btn-primary">送信する</button>
     </form>
 </div>
