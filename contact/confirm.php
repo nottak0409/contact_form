@@ -115,9 +115,6 @@ require '../vendor/autoload.php';
 
             mb_language("ja");
         mb_internal_encoding("UTF-8");
-
-        //mb_send_mail("kanda.it.school.trial@gmail.com", "メール送信テスト", "メール本文");
-
             // 件名を変数titleに格納
         $title = "［自動送信］お問い合わせ内容の確認";
 
